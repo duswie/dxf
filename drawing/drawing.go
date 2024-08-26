@@ -300,6 +300,13 @@ func (d *Drawing) ThreeDFace(points [][]float64) (*entity.ThreeDFace, error) {
 	return f, nil
 }
 
+func (d *Drawing) ThreeDSolid(sat_lines []string) (*entity.ThreeDSolid, error) {
+	f := entity.New3DSolid(sat_lines)
+	f.SetLayer(d.CurrentLayer)
+	d.AddEntity(f)
+	return f, nil
+}
+
 // Text creates a new TEXT str at (x, y, z) with given height.
 func (d *Drawing) Text(str string, x, y, z, height float64) (*entity.Text, error) {
 	t := entity.NewText()
@@ -310,6 +317,22 @@ func (d *Drawing) Text(str string, x, y, z, height float64) (*entity.Text, error
 	t.Style = d.CurrentStyle
 	t.WidthFactor = t.Style.WidthFactor
 	t.ObliqueAngle = t.Style.ObliqueAngle
+	t.Style.LastHeightUsed = height
+	d.AddEntity(t)
+	return t, nil
+}
+
+// Text creates a new MTEXT str at (x, y, z) with given height.
+func (d *Drawing) Mtext(str string, x, y, z, height float64, rect_width float64) (*entity.Mtext, error) {
+	t := entity.NewMtext()
+	t.Coord1 = []float64{x, y, z}
+	t.Height = height
+	t.Value = str
+	t.SetLayer(d.CurrentLayer)
+	t.Style = d.CurrentStyle
+	t.AttachmentPoint = 1
+	t.DrawingDirection = 4
+	t.RectangleWidth = rect_width
 	t.Style.LastHeightUsed = height
 	d.AddEntity(t)
 	return t, nil

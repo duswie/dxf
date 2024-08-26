@@ -16,7 +16,7 @@ is only supported.
 package main
 
 import (
-	"github.com/duswie/dxf"
+	"dxf"
 	"github.com/duswie/dxf/color"
 	"github.com/duswie/dxf/table"
 	"log"
@@ -54,7 +54,7 @@ func main() {
 ## Installation
 
 ```
-$ go get github.com/duswie/dxf
+$ go get dxf
 ```
 
 # License
